@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>社團報名系統</title>
+    <title>羽球社 報名系統</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -13,20 +13,20 @@
         .form-input:focus, .form-select:focus, .form-textarea:focus, .form-checkbox:focus, .form-radio:focus {
             outline: 2px solid transparent;
             outline-offset: 2px;
-            --tw-ring-color: #3b82f6;
+            --tw-ring-color: #0d9488; /* teal-600 */
             box-shadow: 0 0 0 2px var(--tw-ring-color);
         }
         .error-message { display: none; color: #ef4444; font-size: 0.875rem; margin-top: 0.25rem; }
         .is-invalid { border-color: #ef4444; }
         .is-invalid:focus { --tw-ring-color: #ef4444; }
         .loader {
-            border: 4px solid #f3f3f3; /* Light grey */
-            border-top: 4px solid #3498db; /* Blue */
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #14b8a6; /* teal-500 */
             border-radius: 50%;
             width: 24px;
             height: 24px;
             animation: spin 1s linear infinite;
-            display: none; /* Initially hidden */
+            display: none;
             margin-left: 1rem;
         }
         @keyframes spin {
@@ -41,28 +41,20 @@
         
         <header class="text-center mb-10">
             <h1 class="text-3xl sm:text-4xl font-bold text-gray-800">生涯規劃俱樂部 羽球社</h1>
-            <p class="mt-3 text-md text-gray-600">感謝您對本活動的興趣！請填寫以下資訊以完成報名。我們期待在活動上見到您！</p>
+            <p class="mt-3 text-md text-gray-600">歡迎加入我們的羽球大家庭！無論您是新手或高手，都歡迎一起來享受揮拍的樂趣！</p>
         </header>
 
         <form id="registrationForm" class="bg-white p-8 sm:p-10 rounded-xl shadow-lg space-y-8" novalidate>
             <!-- 活動資訊 -->
             <fieldset class="border-b border-gray-200 pb-8">
-                <legend class="text-xl font-semibold text-gray-900 mb-4">活動資訊</legend>
+                <legend class="text-xl font-semibold text-gray-900 mb-4">社團資訊</legend>
                 <div class="space-y-3 text-gray-700">
-                    <p><strong>活動主題：</strong> 羽球社 </p>
-                    <p><strong>活動日期：</strong> 2025 年 8 月 2 日 (星期六)</p>
-                    <p><strong>活動時間：</strong> 晚上 6:00 - 晚上 8:00</p>
+                    <p><strong>活動主題：</strong> 羽球社零打團</p>
+                    <p><strong>活動日期：</strong> 8/2 (星期六)</p>
+                    <p><strong>活動時間：</strong> 晚上 6:00 - 8:00</p>
                     <p><strong>活動地點：</strong> 臺北市大同運動中心 (臺北市大同區大龍街51號)</p>
-                    <p><strong>活動費用：</strong> <span class="text-blue-600 font-bold">新台幣 $200元/人</span> </p>
-                    
-                    <div class="pt-4">
-                        <p><strong>報名須知：</strong></p>
-                        <ul class="list-disc list-inside mt-2 space-y-2 text-gray-600">
-                            <li><strong>如需取消報名，請於活動前 4 個小時通知隊長，已利隊長重新找人。</li>
-                            <li><strong>請自備球具、球拍、球鞋，活動前後需暖身與收操。</li>
-                            <li><strong>請保持尊重、禮貌、友善。</li>
-                        </ul>
-                    </div>
+                    <p><strong>學期費用：</strong> <span class="text-teal-600 font-bold">新台幣 $200 元/人</span> (含場地費與基本球費)</p>
+                    <p><strong>使用球種：</strong> RSL No.4</p>
                 </div>
             </fieldset>
 
@@ -72,84 +64,110 @@
                 <div class="grid grid-cols-1 gap-y-6 gap-x-6 sm:grid-cols-2">
                     <div>
                         <label for="fullName" class="block text-sm font-medium text-gray-700">姓名 <span class="text-red-500">*</span></label>
-                        <input type="text" name="fullName" id="fullName" required class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        <input type="text" name="fullName" id="fullName" required class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500">
                         <p id="fullNameError" class="error-message">請輸入您的姓名</p>
                     </div>
                     <div>
                         <label for="phone" class="block text-sm font-medium text-gray-700">聯絡電話 <span class="text-red-500">*</span></label>
-                        <input type="tel" name="phone" id="phone" required class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        <input type="tel" name="phone" id="phone" required class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500">
                          <p id="phoneError" class="error-message">請輸入您的聯絡電話</p>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700">性別 <span class="text-red-500">*</span></label>
                         <div class="mt-2 flex items-center space-x-6">
                             <div class="flex items-center">
-                                <input id="genderMale" name="gender" type="radio" value="男" required class="form-radio h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                                <input id="genderMale" name="gender" type="radio" value="男" required class="form-radio h-4 w-4 text-teal-600 border-gray-300 focus:ring-teal-500">
                                 <label for="genderMale" class="ml-2 block text-sm text-gray-900">男</label>
                             </div>
                             <div class="flex items-center">
-                                <input id="genderFemale" name="gender" type="radio" value="女" class="form-radio h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                                <input id="genderFemale" name="gender" type="radio" value="女" class="form-radio h-4 w-4 text-teal-600 border-gray-300 focus:ring-teal-500">
                                 <label for="genderFemale" class="ml-2 block text-sm text-gray-900">女</label>
                             </div>
                         </div>
                         <p id="genderError" class="error-message">請選擇您的性別</p>
                     </div>
                     <div>
-                        <label for="age" class="block text-sm font-medium text-gray-700">年齡 <span class="text-red-500">*</span></label>
-                        <input type="text" name="age" id="age" required class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="請輸入您的年齡">
-                        <p id="ageError" class="error-message">請輸入您的年齡</p>
-                    </div>
-                     <div>
                         <label for="source" class="block text-sm font-medium text-gray-700">介紹人 <span class="text-red-500">*</span></label>
-                        <input type="text" name="source" id="source" required class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                        <p id="sourceError" class="error-message">請輸入介紹人</p>
+                        <input type="text" name="source" id="source" required class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500">
+                        <p id="sourceError" class="error-message">請輸入介紹人姓名</p>
                     </div>
                     <div class="sm:col-span-2">
                         <label for="email" class="block text-sm font-medium text-gray-700">電子郵件 <span class="text-red-500">*</span></label>
-                        <input type="email" name="email" id="email" required class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="我們將透過此信箱寄送課前通知">
+                        <input type="email" name="email" id="email" required class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" placeholder="我們將透過此信箱發送通知">
                         <p id="emailError" class="error-message">請輸入有效的電子郵件地址</p>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label for="badmintonLevel" class="block text-sm font-medium text-gray-700">羽球程度 <span class="text-red-500">*</span></label>
+                        <select id="badmintonLevel" name="badmintonLevel" required class="form-select mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500">
+                            <option value="">請選擇您的程度</option>
+                            <option value="新手">新手 (剛接觸，正在學習規則與握拍)</option>
+                            <option value="初階">初階 (可與球友簡單對打，但穩定性不高)</option>
+                            <option value="初中">初中 (可連續對打，了解基本跑位，會使用高遠球)</option>
+                            <option value="中階">中階 (穩定對打，會運用切、殺、吊等技巧)</option>
+                            <option value="中高">中高 (球路穩定且具戰術意識，常參與零打或比賽)</option>
+                            <option value="高階">高階 (校隊或乙組以上實力，精通各項技術)</option>
+                            <option value="職業">職業 (甲組或職業選手等級)</option>
+                        </select>
+                        <p id="badmintonLevelError" class="error-message">請選擇您的羽球程度</p>
                     </div>
                 </div>
             </fieldset>
             
-            <!-- 活動相關問題 -->
+            <!-- 其他資訊 -->
             <fieldset class="border-b border-gray-200 pb-8">
-                <legend class="text-xl font-semibold text-gray-900 mb-4">活動相關問題</legend>
+                <legend class="text-xl font-semibold text-gray-900 mb-4">其他資訊</legend>
                 <div class="space-y-6">
                     <div>
-                         <label class="block text-sm font-medium text-gray-700">程度？<span class="text-red-500">*</span></label>
-                         <div id="learningGoalGroup" class="mt-2 space-y-2">
+                         <label class="block text-sm font-medium text-gray-700">您希望主要參與的組別？<span class="text-red-500">*</span></label>
+                         <div class="mt-2 space-y-2">
                              <div class="flex items-center">
-                                 <input id="goalOther" name="learningGoal" type="checkbox" value="程度" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-1">
-                                 <div class="ml-3 w-full">
-                                     <label for="goalOther" class="text-sm text-gray-600"> 羽球分級 </label>
-                                     <input type="text" id="goalOtherText" name="goalOtherText" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 hidden" placeholder="請說明您的羽球程度">
-                                 </div>
+                                 <input id="group1" name="preferredGroup" type="radio" value="輕鬆對打組" required class="form-radio h-4 w-4 text-teal-600 border-gray-300 focus:ring-teal-500">
+                                 <label for="group1" class="ml-3 text-sm text-gray-600">輕鬆對打組 (享受運動，開心流汗)</label>
+                             </div>
+                             <div class="flex items-center">
+                                 <input id="group2" name="preferredGroup" type="radio" value="技巧訓練組" class="form-radio h-4 w-4 text-teal-600 border-gray-300 focus:ring-teal-500">
+                                 <label for="group2" class="ml-3 text-sm text-gray-600">技巧訓練組 (想精進球技與戰術)</label>
+                             </div>
+                             <div class="flex items-center">
+                                 <input id="group3" name="preferredGroup" type="radio" value="競賽挑戰組" class="form-radio h-4 w-4 text-teal-600 border-gray-300 focus:ring-teal-500">
+                                 <label for="group3" class="ml-3 text-sm text-gray-600">競賽挑戰組 (目標是參加比賽)</label>
                              </div>
                          </div>
-                         <p id="learningGoalError" class="error-message">請至少選擇一個項目</p>
+                         <p id="preferredGroupError" class="error-message">請選擇您想參與的組別</p>
                     </div>
                 </div>
             </fieldset>
 
-            <!-- 帳務資訊 -->
-            <fieldset>
-                <legend class="text-xl font-semibold text-gray-900 mb-4">帳務資訊</legend>
-                <div class="bg-gray-100 p-4 rounded-lg text-sm text-gray-800 mb-6">
-                    <p><strong>匯款資訊：</strong> 國泰世華銀行 古亭分行 (代碼: 013)</p>
-                    <p><strong>匯款帳號：</strong> 030506-162633</p>
-                     <p><strong>戶名：</strong> 曾思恆 (代收)</p>
-                </div>
+            <!-- 繳費資訊 -->
+            <fieldset class="border-b border-gray-200 pb-8">
+                <legend class="text-xl font-semibold text-gray-900 mb-4">繳費資訊</legend>
                 <div>
-                     <label for="paymentInfo" class="block text-sm font-medium text-gray-700">匯款帳號後五碼 <span class="text-red-500">*</span></label>
-                     <input type="text" name="paymentInfo" id="paymentInfo" required maxlength="5" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="為方便對帳，請務必填寫">
-                     <p id="paymentInfoError" class="error-message">請輸入匯款帳號後五碼</p>
+                     <label class="block text-sm font-medium text-gray-700">繳費方式 <span class="text-red-500">*</span></label>
+                     <div class="mt-2 flex items-center space-x-6">
+                         <div class="flex items-center">
+                             <input id="payOnsite" name="paymentMethod" type="radio" value="已由介紹人代收" required class="form-radio h-4 w-4 text-teal-600 border-gray-300 focus:ring-teal-500">
+                             <label for="payOnsite" class="ml-2 block text-sm text-gray-900">已由介紹人代收</label>
+                         </div>
+                     </div>
+                     <p id="paymentMethodError" class="error-message">請選擇繳費方式</p>
+                </div>
+            </fieldset>
+
+            <!-- 報名須知 -->
+            <fieldset>
+                <legend class="text-xl font-semibold text-gray-900 mb-4">報名須知</legend>
+                <div class="prose prose-sm text-gray-600 max-w-none">
+                    <ul class="list-disc space-y-2 pl-5">
+                        <li>如需取消報名，請於活動前 6 個小時通知，以利重新找人。</li>
+                        <li>請自備球具、球拍、球鞋，活動前後需暖身與收操。</li>
+                        <li>請保持尊重、禮貌、友善。</li>
+                    </ul>
                 </div>
             </fieldset>
 
             <!-- 提交 -->
             <div class="pt-5">
-                <button type="submit" id="submitButton" class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 disabled:bg-blue-300">
+                <button type="submit" id="submitButton" class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200 disabled:bg-teal-300">
                     <span id="buttonText">確認送出報名</span>
                     <div id="buttonLoader" class="loader"></div>
                 </button>
@@ -165,9 +183,7 @@
             <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <div class="sm:flex sm:items-start">
-                        <div id="modalIconContainer" class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
-                            <!-- Icon will be inserted here by JS -->
-                        </div>
+                        <div id="modalIconContainer" class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10"></div>
                         <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modalTitle"></h3>
                             <div class="mt-2">
@@ -177,7 +193,7 @@
                     </div>
                 </div>
                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                    <button type="button" id="closeModal" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                    <button type="button" id="closeModal" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-teal-600 text-base font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:ml-3 sm:w-auto sm:text-sm">
                         關閉
                     </button>
                 </div>
@@ -192,11 +208,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const submitButton = document.getElementById('submitButton');
     const buttonText = document.getElementById('buttonText');
     const buttonLoader = document.getElementById('buttonLoader');
-    const goalOtherCheckbox = document.getElementById('goalOther');
-    const goalOtherText = document.getElementById('goalOtherText');
-
+    const paymentInfoContainer = document.getElementById('paymentInfoContainer');
+    const paymentInfoInput = document.getElementById('paymentInfo');
+    
     // Google Apps Script 部署後的網址
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzRp0_liDB0frUY5e3p2rB7NQnZ-wJ_IQx-PfGqXCDAgXQHV_tTFAoY1Q8QkzLtzLT8Vg/exec';
+    // !重要! 請務必替換成您自己的 Google Apps Script 網址
+    const SCRIPT_URL = 'YOUR_WEB_APP_URL';
 
     // --- Modal 相關 ---
     const responseModal = document.getElementById('responseModal');
@@ -212,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
             modalIconContainer.innerHTML = successIcon;
             modalIconContainer.className = 'mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10';
             modalTitle.textContent = '報名成功！';
-            modalMessage.textContent = '我們已經收到您的報名資訊。相關的課前通知將在 3 個工作天內寄至您的電子信箱，敬請留意。';
+            modalMessage.textContent = '我們已收到您的報名資料，期待在球場上與您相見！';
         } else {
             modalIconContainer.innerHTML = errorIcon;
             modalIconContainer.className = 'mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10';
@@ -226,10 +243,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const fieldsToValidate = { 
         'fullName': 'fullNameError', 
         'phone': 'phoneError', 
-        'source': 'sourceError',
+        'source': 'sourceError', // 新增介紹人驗證
         'email': 'emailError', 
-        'age': 'ageError',
-        'paymentInfo': 'paymentInfoError'
+        'badmintonLevel': 'badmintonLevelError'
     };
     function showError(fieldId, errorId) { const field = document.getElementById(fieldId); const error = document.getElementById(errorId); if (field && error) { field.classList.add('is-invalid'); error.style.display = 'block'; } }
     function hideError(fieldId, errorId) { const field = document.getElementById(fieldId); const error = document.getElementById(errorId); if (field && error) { field.classList.remove('is-invalid'); error.style.display = 'none'; } }
@@ -238,41 +254,41 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateForm() {
         let isValid = true;
         
-        // 重置所有文字輸入欄位的錯誤
+        // 重置所有錯誤
         Object.entries(fieldsToValidate).forEach(([fieldId, errorId]) => hideError(fieldId, errorId));
-        // 重置單選/複選的錯誤
-        ['genderError', 'learningGoalError'].forEach(id => {
+        ['genderError', 'preferredGroupError', 'paymentMethodError', 'paymentInfoError'].forEach(id => {
             const errorEl = document.getElementById(id);
             if (errorEl) errorEl.style.display = 'none';
         });
+        hideError('paymentInfo', 'paymentInfoError');
 
-        // 驗證文字輸入欄位
+        // 驗證文字/下拉輸入欄位
         Object.entries(fieldsToValidate).forEach(([fieldId, errorId]) => {
             const field = document.getElementById(fieldId);
-            let fieldValid = true;
-            if (!field.value.trim()) fieldValid = false;
-            
-            if (fieldId === 'email' && field.value.trim() && !validateEmail(field.value.trim())) {
-                fieldValid = false;
-            }
-
-            if (!fieldValid) {
+            if (!field.value.trim()) {
+                showError(fieldId, errorId);
+                isValid = false;
+            } else if (fieldId === 'email' && !validateEmail(field.value.trim())) {
                 showError(fieldId, errorId);
                 isValid = false;
             }
         });
 
-        // 驗證性別單選按鈕
+        // 驗證單選按鈕
         if (!document.querySelector('input[name="gender"]:checked')) {
-            const genderError = document.getElementById('genderError');
-            if (genderError) genderError.style.display = 'block';
+            document.getElementById('genderError').style.display = 'block';
             isValid = false;
         }
-        
-        // 驗證學習目標複選框
-        if (document.querySelectorAll('input[name="learningGoal"]:checked').length === 0) {
-            const learningGoalError = document.getElementById('learningGoalError');
-            if (learningGoalError) learningGoalError.style.display = 'block';
+        if (!document.querySelector('input[name="preferredGroup"]:checked')) {
+            document.getElementById('preferredGroupError').style.display = 'block';
+            isValid = false;
+        }
+        const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+        if (!paymentMethod) {
+            document.getElementById('paymentMethodError').style.display = 'block';
+            isValid = false;
+        } else if (paymentMethod.value === '銀行轉帳' && !paymentInfoInput.value.trim()) {
+            showError('paymentInfo', 'paymentInfoError');
             isValid = false;
         }
 
@@ -283,14 +299,19 @@ document.addEventListener('DOMContentLoaded', function() {
     closeModalButton.addEventListener('click', () => { responseModal.classList.add('hidden'); });
     responseModal.addEventListener('click', (event) => { if (event.target === responseModal) responseModal.classList.add('hidden'); });
     
-    // 監聽 "其他" 選項
-    goalOtherCheckbox.addEventListener('change', function() {
-        if (this.checked) {
-            goalOtherText.classList.remove('hidden');
-        } else {
-            goalOtherText.classList.add('hidden');
-            goalOtherText.value = ''; // 清空內容
-        }
+    // 監聽繳費方式
+    form.elements.paymentMethod.forEach(radio => {
+        radio.addEventListener('change', function() {
+            if (this.value === '銀行轉帳') {
+                paymentInfoContainer.classList.remove('hidden');
+                paymentInfoInput.required = true;
+            } else {
+                paymentInfoContainer.classList.add('hidden');
+                paymentInfoInput.required = false;
+                paymentInfoInput.value = '';
+                hideError('paymentInfo', 'paymentInfoError');
+            }
+        });
     });
 
     // --- 表單提交 ---
@@ -311,26 +332,7 @@ document.addEventListener('DOMContentLoaded', function() {
         buttonLoader.style.display = 'block';
 
         const formData = new FormData(form);
-        const data = {};
-        for (let [key, value] of formData.entries()) {
-            // 排除空的 goalOtherText
-            if (key !== 'goalOtherText') {
-                data[key] = value;
-            }
-        }
-        
-        // 特別處理可複選的 learningGoal
-        const learningGoals = [];
-        document.querySelectorAll('input[name="learningGoal"]:checked').forEach(checkbox => {
-            if (checkbox.value === '其他') {
-                if (goalOtherText.value.trim()) {
-                    learningGoals.push(`其他: ${goalOtherText.value.trim()}`);
-                }
-            } else {
-                learningGoals.push(checkbox.value);
-            }
-        });
-        data.learningGoal = learningGoals.join(', ');
+        const data = Object.fromEntries(formData.entries());
 
         fetch(SCRIPT_URL, {
             method: 'POST',
@@ -344,7 +346,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.result === 'success') {
                 showModal(true);
                 form.reset();
-                goalOtherText.classList.add('hidden'); // 確保 "其他" 文字框也隱藏
+                paymentInfoContainer.classList.add('hidden');
             } else {
                 throw new Error(response.error || '未知的後端錯誤');
             }
