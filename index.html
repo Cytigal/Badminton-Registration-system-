@@ -53,7 +53,7 @@
                     <p><strong>活動日期：</strong> 8/2 (星期六)</p>
                     <p><strong>活動時間：</strong> 晚上 6:00 - 8:00</p>
                     <p><strong>活動地點：</strong> 臺北市大同運動中心 (臺北市大同區大龍街51號)</p>
-                    <p><strong>學期費用：</strong> <span class="text-teal-600 font-bold">新台幣 $200 元/人</span> (含場地費與基本球費)</p>
+                    <p><strong>費用：</strong> <span class="text-teal-600 font-bold">新台幣 $200 元/人</span> (含場地費與基本球費)</p>
                     <p><strong>使用球種：</strong> RSL No.4</p>
                 </div>
             </fieldset>
@@ -208,11 +208,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const submitButton = document.getElementById('submitButton');
     const buttonText = document.getElementById('buttonText');
     const buttonLoader = document.getElementById('buttonLoader');
-    const paymentInfoContainer = document.getElementById('paymentInfoContainer');
-    const paymentInfoInput = document.getElementById('paymentInfo');
     
     // Google Apps Script 部署後的網址
-    // !重要! 請務必替換成您自己的 Google Apps Script 網址
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbywhu0PpDjDNKfve5ju2B3X1fdD68vWHcRNxvax4yFQM5bYIoGZ2N0U5CmiPygDkQhP/exec';
 
     // --- Modal 相關 ---
@@ -243,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const fieldsToValidate = { 
         'fullName': 'fullNameError', 
         'phone': 'phoneError', 
-        'source': 'sourceError', // 新增介紹人驗證
+        'source': 'sourceError',
         'email': 'emailError', 
         'badmintonLevel': 'badmintonLevelError'
     };
@@ -254,15 +251,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateForm() {
         let isValid = true;
         
-        // 重置所有錯誤
         Object.entries(fieldsToValidate).forEach(([fieldId, errorId]) => hideError(fieldId, errorId));
-        ['genderError', 'preferredGroupError', 'paymentMethodError', 'paymentInfoError'].forEach(id => {
+        ['genderError', 'preferredGroupError', 'paymentMethodError'].forEach(id => {
             const errorEl = document.getElementById(id);
             if (errorEl) errorEl.style.display = 'none';
         });
-        hideError('paymentInfo', 'paymentInfoError');
 
-        // 驗證文字/下拉輸入欄位
         Object.entries(fieldsToValidate).forEach(([fieldId, errorId]) => {
             const field = document.getElementById(fieldId);
             if (!field.value.trim()) {
@@ -274,7 +268,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // 驗證單選按鈕
         if (!document.querySelector('input[name="gender"]:checked')) {
             document.getElementById('genderError').style.display = 'block';
             isValid = false;
@@ -283,12 +276,8 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('preferredGroupError').style.display = 'block';
             isValid = false;
         }
-        const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
-        if (!paymentMethod) {
+        if (!document.querySelector('input[name="paymentMethod"]:checked')) {
             document.getElementById('paymentMethodError').style.display = 'block';
-            isValid = false;
-        } else if (paymentMethod.value === '銀行轉帳' && !paymentInfoInput.value.trim()) {
-            showError('paymentInfo', 'paymentInfoError');
             isValid = false;
         }
 
@@ -299,21 +288,6 @@ document.addEventListener('DOMContentLoaded', function() {
     closeModalButton.addEventListener('click', () => { responseModal.classList.add('hidden'); });
     responseModal.addEventListener('click', (event) => { if (event.target === responseModal) responseModal.classList.add('hidden'); });
     
-    // 監聽繳費方式
-    form.elements.paymentMethod.forEach(radio => {
-        radio.addEventListener('change', function() {
-            if (this.value === '銀行轉帳') {
-                paymentInfoContainer.classList.remove('hidden');
-                paymentInfoInput.required = true;
-            } else {
-                paymentInfoContainer.classList.add('hidden');
-                paymentInfoInput.required = false;
-                paymentInfoInput.value = '';
-                hideError('paymentInfo', 'paymentInfoError');
-            }
-        });
-    });
-
     // --- 表單提交 ---
     form.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -346,7 +320,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.result === 'success') {
                 showModal(true);
                 form.reset();
-                paymentInfoContainer.classList.add('hidden');
             } else {
                 throw new Error(response.error || '未知的後端錯誤');
             }
@@ -366,3 +339,65 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
+```
+
+---
+
+### **第二步：更新您的後端 Apps Script**
+
+由於您的表單欄位已經簡化（移除了銀行轉帳選項），建議您使用下方這個更簡潔的後端程式碼。
+
+請用下方的程式碼，**完整取代**您在 Canvas 中的 `badminton_script_latest` 內容。
+
+
+```javascript
+// 當收到 HTTP POST 請求時，此函數會被執行
+function doPost(e) {
+  try {
+    // 解析從網頁表單傳來的 JSON 資料
+    var data = JSON.parse(e.postData.contents);
+
+    // 在此處設定您的工作表名稱
+    var sheetName = '報名總表'; // <-- 您可以在此修改工作表分頁的名稱
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName);
+
+    // 如果找不到指定的工作表，就建立一個新的
+    if (!sheet) {
+      sheet = SpreadsheetApp.getActiveSpreadsheet().insertSheet(sheetName);
+      // 設定新工作表的標頭
+      var headers = [
+        "報名時間", "姓名", "聯絡電話", "性別", "介紹人", "電子郵件",
+        "羽球程度", "參與組別", "繳費方式"
+      ];
+      sheet.appendRow(headers);
+    }
+
+    // 準備要寫入新一列的資料
+    // !注意! 此處順序對應最新的表單欄位
+    var newRow = [
+      new Date(),             // A: 時間戳記
+      data.fullName,          // B: 姓名
+      data.phone,             // C: 聯絡電話
+      data.gender,            // D: 性別
+      data.source,            // E: 介紹人
+      data.email,             // F: 電子郵件
+      data.badmintonLevel,    // G: 羽球程度
+      data.preferredGroup,    // H: 參與組別
+      data.paymentMethod      // I: 繳費方式
+    ];
+
+    // 將新的一列資料附加到工作表的最後
+    sheet.appendRow(newRow);
+
+    // 回傳一個成功的 JSON 訊息給前端網頁
+    return ContentService
+      .createTextOutput(JSON.stringify({ 'result': 'success' }))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (error) {
+    // 如果發生錯誤，回傳一個包含錯誤訊息的 JSON
+    return ContentService
+      .createTextOutput(JSON.stringify({ 'result': 'error', 'error': error.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
